@@ -2,8 +2,16 @@
 #define IT230_PROJECT1_MYSET_H
 #include <string>
 
+/*
+#ifdef USE_EXPORT_KEYWORD
+export
+#endif
+*/
+
 namespace mySet
 {
+
+    // TODO implement is_arithmetic_v
     template<typename T>
     class MySet
     {
@@ -15,10 +23,9 @@ namespace mySet
         void grow();
         void shrink();
     public:
-        int count;
         int capacity;
 
-        int get_size() const;
+        int getSize() const;
         T median();
 
         MySet();
@@ -29,6 +36,7 @@ namespace mySet
 
         size_t find(T match);
         bool insert(T item);
+        bool insertAt(size_t index, T item);
         void remove(T item);
         void removeAt(size_t index);
         void clear();
@@ -45,4 +53,8 @@ namespace mySet
 
 }
 
+/*#ifndef USE_EXPORT_KEYWORD
+#include "mySet.cpp"
+#endif
+*/
 #endif //IT230_PROJECT1_MYSET_H

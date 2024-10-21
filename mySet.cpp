@@ -3,12 +3,22 @@
 #include <iostream>
 #include <stdexcept>
 
+
 namespace mySet
 {
+
+
     static const size_t npos = -1;
 
+
     template<typename T>
-    int MySet<T>::get_size() const
+    int MySet<T>::getSize() const
+    {
+        return size;
+    }
+
+    template<typename T>
+    T MySet<T>::median()
     {
         if(size % 2 == 0)
         {
@@ -19,18 +29,11 @@ namespace mySet
     }
 
     template<typename T>
-    T MySet<T>::median()
-    {
-        return items[size / 2];
-    }
-
-    template<typename T>
     MySet<T>::MySet()
     {
         size = 0;
         capacity = 4;
         items = new T[capacity];
-        count = 0;
     }
 
     template<typename T>
@@ -38,7 +41,6 @@ namespace mySet
     {
         items = new T[capacity];
         size = capacity;
-        count = 0;
     }
 
     template<typename T>
@@ -115,14 +117,20 @@ namespace mySet
     }
 
     template<typename T>
-    bool MySet<T>::insert(const T item)
+    bool MySet<T>::insertAt(size_t index, T item)
     {
+        if(index < 0 || index > capacity)
+        {
+            throw std::out_of_range("Index out of range.");
+        }
+
         if(capacity == 0)
         {
             items = new T[1];
             capacity++;
         }
 
+        // * Checks for duplicates
         for(int i = 0; i < size; i++)
         {
             if(items[i] == item)
@@ -131,6 +139,7 @@ namespace mySet
             }
         }
 
+        // * Value was not found in the set
         if(find(item) == npos)
         {
             if(size + 1 >= capacity)
@@ -138,10 +147,21 @@ namespace mySet
                 grow();
             }
 
-            items[size] = item;
+            for(size_t i = capacity - 1; i > index; i--)
+            {
+                items[i] = items[i - 1];
+            }
+
+            items[index] = item;
             size++;
         }
         return true;
+    }
+
+    template<typename T>
+    bool MySet<T>::insert(const T item)
+    {
+        return insertAt(size, item);
     }
 
     template<typename T>
@@ -207,12 +227,12 @@ namespace mySet
     {
         bool sorted = false;
         size_t unsortedUntilIndex = size - 1;
-
+        size_t startingIndex = 0;
         while(sorted == false)
         {
             sorted = true;
 
-            for(int i = 0; i < unsortedUntilIndex; i++)
+            for(size_t i = startingIndex; i < unsortedUntilIndex; i++)
             {
                 if(items[i] > items[i + 1])
                 {
@@ -220,19 +240,20 @@ namespace mySet
                     sorted = false;
                 }
             }
+            unsortedUntilIndex--;
 
             if(bidirectional)
             {
-                for(size_t i = unsortedUntilIndex; i > 0; i--)
+                for(size_t j = unsortedUntilIndex; j > startingIndex; j--)
                 {
-                    if(items[i] < items[i - 1])
+                    if(items[j] < items[j - 1])
                     {
-                        swap(&items[i], &items[i - 1]);
+                        swap(&items[j], &items[j - 1]);
                         sorted = false;
                     }
                 }
+                startingIndex++;
             }
-            unsortedUntilIndex--;
         }
     }
 
@@ -243,6 +264,7 @@ namespace mySet
         {
             T temp = items[i];
             int j = i - 1;
+
             for(; j >= 0 && items[j] > temp; j--)
             {
                 items[j + 1] = items[j];
@@ -261,7 +283,8 @@ namespace mySet
         {
             T temp = items[i];
             copyCount++;
-            int j = i - 1;
+            size_t j = i - 1;
+
             for(; j >= 0 && items[j] > temp; j--)
             {
                 comparisonCount++;
@@ -270,7 +293,8 @@ namespace mySet
             items[j + 1] = temp;
         }
 
-        std::cout << "Set sorted. Total copies made: " << copyCount << ". Total comparisons made: " << comparisonCount << std::endl;
+        std::cout << "Set sorted. Total copies made: " << copyCount << ". Total comparisons made: " << comparisonCount
+        << ". Size: " << size << std::endl;
     }
 
     template<typename T>
@@ -325,6 +349,9 @@ namespace mySet
     }
 
     template class MySet<int>;
+    template class MySet<float>;
+    template class MySet<bool>;
+
 
 }
 
