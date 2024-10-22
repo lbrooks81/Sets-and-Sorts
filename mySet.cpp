@@ -6,10 +6,7 @@
 
 namespace mySet
 {
-
-
     static const size_t npos = -1;
-
 
     template<typename T>
     int MySet<T>::getSize() const
@@ -18,14 +15,19 @@ namespace mySet
     }
 
     template<typename T>
-    T MySet<T>::median()
+    double MySet<T>::median()
     {
+        this->bubbleSort(false);
+
         if(size % 2 == 0)
         {
-            return (size / 2 + (size / 2) + 1) / 2;
+            double el1 = items[(size - 1) / 2];
+            double el2 = items[size / 2];
+
+            return (el1 + el2) / 2;
         }
 
-        return (size + 1) / 2;
+        return items[(size - 1) / 2];
     }
 
     template<typename T>
@@ -78,42 +80,54 @@ namespace mySet
     void MySet<T>::shrink()
     {
         T* tempArray = new T[capacity / 2];
-        {
-            for(int i = 0; i < size; i++)
-            {
-                tempArray[i] = items[i];
-            }
 
-            capacity /= 2;
-            items = tempArray;
-            delete [] tempArray;
+        for(int i = 0; i < size; i++)
+        {
+            tempArray[i] = items[i];
         }
+
+        capacity /= 2;
+        items = tempArray;
+        delete [] tempArray;
+
     }
 
     template<typename T>
     size_t MySet<T>::find(T match)
     {
-        int left = 0;
-        int right = capacity - 1;
-
-        while(right >= left)
+        if(sorted == false)
         {
-            int mid = left + (right - left) / 2;
+            for(size_t i = 0; i < size - 1; i++)
+            {
+                if(items[i] == match) return i;
+            }
+        }
 
-            if(items[mid] == match)
+        if(sorted)
+        {
+            int left = 0;
+            int right = capacity - 1;
+
+            while(right >= left)
             {
-                return mid;
-            }
-            if(items[mid] > match)
-            {
-                right = mid - 1;
-            }
-            else if(items[mid] < match)
-            {
-                left = mid + 1;
+                int mid = left + (right - left) / 2;
+
+                if(items[mid] == match)
+                {
+                    return mid;
+                }
+                if(items[mid] > match)
+                {
+                    right = mid - 1;
+                }
+                else if(items[mid] < match)
+                {
+                    left = mid + 1;
+                }
             }
         }
         return npos;
+
     }
 
     template<typename T>
@@ -130,8 +144,8 @@ namespace mySet
             capacity++;
         }
 
-        // * Checks for duplicates
-        for(int i = 0; i < size; i++)
+        // Checks for duplicates
+        for(size_t i = 0; i < size; i++)
         {
             if(items[i] == item)
             {
@@ -139,7 +153,7 @@ namespace mySet
             }
         }
 
-        // * Value was not found in the set
+        // Value was not found in the set
         if(find(item) == npos)
         {
             if(size + 1 >= capacity)
@@ -182,9 +196,11 @@ namespace mySet
             throw std::out_of_range("Index out of range.");
         }
 
-        for(size_t i = index; i < capacity; i++)
+        for(size_t i = index; i < size - 1; i++)
         {
+            // std::cout << "Set before removal: " << this->toString() << std::endl;
             items[i] = items[i + 1];
+            // std::cout << "Set after removal: " << this->toString() << std::endl << std::endl;
         }
 
         if(--size < capacity / 4)
@@ -258,43 +274,43 @@ namespace mySet
     }
 
     template<typename T>
-    void MySet<T>::insertionSort()
+    void MySet<T>::insertionSort(bool verbose)
     {
-        for(int i = 1; i < size; i++)
-        {
-            T temp = items[i];
-            int j = i - 1;
 
-            for(; j >= 0 && items[j] > temp; j--)
-            {
-                items[j + 1] = items[j];
-            }
-            items[j + 1] = temp;
-        }
-    }
-
-    template<typename T>
-    void MySet<T>::insertionSortVerbose()
-    {
         int copyCount = 0;
         int comparisonCount = 0;
 
         for(int i = 1; i < size; i++)
         {
             T temp = items[i];
-            copyCount++;
+            if(verbose) copyCount++;
             size_t j = i - 1;
 
             for(; j >= 0 && items[j] > temp; j--)
             {
+                if(j == npos)
+                {
+                    break;
+                }
                 comparisonCount++;
                 items[j + 1] = items[j];
+
             }
-            items[j + 1] = temp;
+            if(j == npos)
+            {
+                items[0] = temp;
+            }
+            else
+            {
+                items[j + 1] = temp;
+            }
         }
 
-        std::cout << "Set sorted. Total copies made: " << copyCount << ". Total comparisons made: " << comparisonCount
+        if(verbose)
+        {
+            std::cout << "Set sorted. Total copies made: " << copyCount << ". Total comparisons made: " << comparisonCount
         << ". Size: " << size << std::endl;
+        }
     }
 
     template<typename T>

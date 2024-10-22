@@ -29,8 +29,6 @@ void populateSet(MySet<int>* set, int numElements)
         {
             i--;
         }
-        // std::cout << i << std::endl;
-        // std::cout << "Size: " << set->getSize() << std::endl;
     }
 }
 
@@ -48,7 +46,7 @@ void testSet()
     mySet->clear();
 
     std::cout << "New set ordered with Bubble Sort:" << std::endl;
-    populateSet(mySet, 50);
+    populateSet(mySet, 10);
     mySet->bubbleSort(false);
     std::cout << mySet->toString() << std::endl << std::endl;
     std::cout << "Size: " << mySet->getSize() << std::endl << std::endl;
@@ -56,7 +54,6 @@ void testSet()
     std::cout << "Clearing Set..." << std::endl << std::endl;
     mySet->clear();
 
-    // ! Size is 6 when running, 10 when debugging
     std::cout << "New set ordered with Bidirectional Bubble Sort:" << std::endl;
     populateSet(mySet, 10);
     mySet->bubbleSort(true);
@@ -67,20 +64,32 @@ void testSet()
     mySet->clear();
 
     std::cout << "New set ordered with Insertion Sort:" << std::endl;
-    // ! Size is 18 when running, 30 when debugging
-    populateSet(mySet, 30);
-    std::cout << "Size: " << mySet->getSize() << std::endl;
-    mySet->insertionSort();
+    populateSet(mySet, 10);
+    mySet->insertionSort(false);
     std::cout << mySet->toString() << std::endl;
     std::cout << "Size: " << mySet->getSize() << std::endl << std::endl;
 
 
-    // ! Size is only 43 when running, has value 268447333 in it
+    std::cout << "Clearing Set..." << std::endl << std::endl;
     mySet->clear();
+
     std::cout << "New set ordered with Insertion Sort Verbose:" << std::endl;
-    populateSet(mySet, 50);
-    mySet->insertionSortVerbose();
+    populateSet(mySet, 10);
+    mySet->insertionSort(true);
     std::cout << mySet->toString() << std::endl << std::endl;
+
+    std::cout << "Median Element: " << mySet->median() << std::endl << std::endl;
+
+    std::cout << "Clearing Set..." << std::endl << std::endl;
+    mySet->clear();
+
+    populateSet(mySet, 10);
+    std::cout << "New unordered set: " << std::endl;
+    std::cout << mySet->toString() << std::endl;
+
+    std::cout << "Inserting element at index 5..." << std::endl;
+    mySet->insertAt(5, 5);
+    std::cout << mySet->toString() << std::endl;
 
 
     std::cout << "Removing element at index 0..." << std::endl;
@@ -90,21 +99,21 @@ void testSet()
     std::cout << mySet->toString() << std::endl;
     std::cout << "Size: " << mySet->getSize() << std::endl << std::endl;
 
-    std::cout << "Median Element: " << mySet->median() << std::endl << std::endl;
-
 
     int initialCapacity = mySet->capacity;
     int initialSize = mySet->getSize();
 
-    std::cout << "Removing Elements..." << std::endl;
+    std::cout << "Removing elements to shrink capacity..." << std::endl;
     std::cout << "Initial Capacity: " << initialCapacity
     << ". Initial Size: " << initialSize << std::endl;
 
-    for(int i = initialSize - 1; i + 1 >= initialCapacity / 4; i--)
+    for(int i = initialSize - 1; i >= initialCapacity / 4 - 1; i--)
     {
         mySet->removeAt(i);
     }
 
+    std::cout << "Set after removal:" << std::endl;
+    std::cout << mySet->toString() << std::endl;
     std::cout << "Capacity after removal: " << mySet->capacity
     << ". Size after removal: " << mySet->getSize() << std::endl;
 }

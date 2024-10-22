@@ -18,6 +18,7 @@ namespace mySet
     private:
         T* items;
         int size;
+        bool sorted;
 
         void swap(T* item1, T* item2);
         void grow();
@@ -26,7 +27,7 @@ namespace mySet
         int capacity;
 
         int getSize() const;
-        T median();
+        double median();
 
         MySet();
         MySet(int capacity);
@@ -44,8 +45,8 @@ namespace mySet
         std::string toString();
 
         void bubbleSort(bool bidrectional);
-        void insertionSort();
-        void insertionSortVerbose();
+        // void insertionSort();
+        void insertionSort(bool verbose);
         void selectionSort();
         void oddEven();
 
