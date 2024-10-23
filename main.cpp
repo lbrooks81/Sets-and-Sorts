@@ -34,10 +34,13 @@ void populateSet(MySet<int>* set, int numElements)
 
 void testSet()
 {
+    // Initialize Set
     MySet<int>* mySet = new MySet<int>();
 
+
+    // Selection Sort
     std::cout << "New set ordered with Selection Sort:" << std::endl;
-    populateSet(mySet, 50);
+    populateSet(mySet, 10);
     mySet->selectionSort();
     std::cout << mySet->toString() << std::endl << std::endl;
     std::cout << "Size: " << mySet->getSize() << std::endl << std::endl;
@@ -45,6 +48,8 @@ void testSet()
     std::cout << "Clearing Set..." << std::endl << std::endl;
     mySet->clear();
 
+
+    // Bubble Sort
     std::cout << "New set ordered with Bubble Sort:" << std::endl;
     populateSet(mySet, 10);
     mySet->bubbleSort(false);
@@ -54,6 +59,8 @@ void testSet()
     std::cout << "Clearing Set..." << std::endl << std::endl;
     mySet->clear();
 
+
+    // Cocktail Sort
     std::cout << "New set ordered with Bidirectional Bubble Sort:" << std::endl;
     populateSet(mySet, 10);
     mySet->bubbleSort(true);
@@ -63,43 +70,57 @@ void testSet()
     std::cout << "Clearing Set..." << std::endl << std::endl;
     mySet->clear();
 
+
+    // Insertion Sort
     std::cout << "New set ordered with Insertion Sort:" << std::endl;
     populateSet(mySet, 10);
     mySet->insertionSort(false);
     std::cout << mySet->toString() << std::endl;
     std::cout << "Size: " << mySet->getSize() << std::endl << std::endl;
 
-
     std::cout << "Clearing Set..." << std::endl << std::endl;
     mySet->clear();
 
+
+    // Insertion Sort Verbose
     std::cout << "New set ordered with Insertion Sort Verbose:" << std::endl;
     populateSet(mySet, 10);
     mySet->insertionSort(true);
     std::cout << mySet->toString() << std::endl << std::endl;
+    std::cout << "Size: " << mySet->getSize() << std::endl << std::endl;
 
     std::cout << "Median Element: " << mySet->median() << std::endl << std::endl;
 
     std::cout << "Clearing Set..." << std::endl << std::endl;
     mySet->clear();
 
+    // OddEven Sort
+    std::cout << "New set ordered with Odd Even:" << std::endl;
+    populateSet(mySet, 10);
+    mySet->oddEven();
+    std::cout << mySet->toString() << std::endl << std::endl;
+    std::cout << "Size: " << mySet->getSize() << std::endl << std::endl;
+
+    std::cout << "Clearing Set..." << std::endl << std::endl;
+    mySet->clear();
+
+    // Insert At
     populateSet(mySet, 10);
     std::cout << "New unordered set: " << std::endl;
     std::cout << mySet->toString() << std::endl;
-
     std::cout << "Inserting element at index 5..." << std::endl;
-    mySet->insertAt(5, 5);
-    std::cout << mySet->toString() << std::endl;
 
+    mySet->insertAt(5, 10);
+    std::cout << mySet->toString() << std::endl << std::endl;
 
-    std::cout << "Removing element at index 0..." << std::endl;
-    mySet->removeAt(0);
+    // Remove At
+    std::cout << "Removing element at index 5..." << std::endl;
+    mySet->removeAt(5);
 
     std::cout << "Set after removal:" << std::endl;
-    std::cout << mySet->toString() << std::endl;
-    std::cout << "Size: " << mySet->getSize() << std::endl << std::endl;
+    std::cout << mySet->toString() << std::endl << std::endl;
 
-
+    // Shrink
     int initialCapacity = mySet->capacity;
     int initialSize = mySet->getSize();
 

@@ -45,7 +45,6 @@ namespace mySet
         std::string toString();
 
         void bubbleSort(bool bidrectional);
-        // void insertionSort();
         void insertionSort(bool verbose);
         void selectionSort();
         void oddEven();
