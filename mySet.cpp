@@ -81,15 +81,14 @@ namespace mySet
     {
         T* tempArray = new T[capacity / 2];
 
-        for(int i = 0; i < size; i++)
+        for(size_t i = 0; i < size; i++)
         {
             tempArray[i] = items[i];
         }
 
+        delete [] items;
         capacity /= 2;
         items = tempArray;
-        delete [] tempArray;
-
     }
 
     template<typename T>
@@ -196,7 +195,7 @@ namespace mySet
             throw std::out_of_range("Index out of range.");
         }
 
-        for(size_t i = index; i < size - 1; i++)
+        for(size_t i = index; i < size - 1; ++i)
         {
             // std::cout << "Set before removal: " << this->toString() << std::endl;
             items[i] = items[i + 1];
