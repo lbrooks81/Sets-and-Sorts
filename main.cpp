@@ -37,7 +37,6 @@ void testSet()
     // Initialize Set
     MySet<int>* mySet = new MySet<int>();
 
-
     // Selection Sort
     std::cout << "New set ordered with Selection Sort:" << std::endl;
     populateSet(mySet, 10);
@@ -137,5 +136,7 @@ void testSet()
     std::cout << mySet->toString() << std::endl;
     std::cout << "Capacity after removal: " << mySet->capacity
     << ". Size after removal: " << mySet->getSize() << std::endl;
+
+    delete [] mySet;
 }
 

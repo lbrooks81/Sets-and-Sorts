@@ -334,6 +334,10 @@ namespace mySet
         }
     }
 
+
+
+    // / TODO
+    // Accesses memory beyond the array. This is caused by the condition of the for loops.
     template<typename T>
     void MySet<T>::oddEven()
     {
@@ -343,7 +347,7 @@ namespace mySet
         {
             sorted = true;
 
-            for(int i = 1; i < size; i += 2)
+            for(int i = 1; i < size - 1; i += 2)
             {
                 if(items[i] > items[i + 1])
                 {
@@ -352,7 +356,7 @@ namespace mySet
                 }
             }
 
-            for(int i = 0; i < size; i += 2)
+            for(int i = 0; i < size - 1; i += 2)
             {
                 if(items[i] > items[i + 1])
                 {
