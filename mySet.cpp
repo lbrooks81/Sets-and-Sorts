@@ -8,13 +8,13 @@ namespace mySet
 {
     static const size_t npos = -1;
 
-    template<typename T>
+    template<Numeric T>
     int MySet<T>::getSize() const
     {
         return size;
     }
 
-    template<typename T>
+    template<Numeric T>
     double MySet<T>::median()
     {
         this->bubbleSort(false);
@@ -30,7 +30,7 @@ namespace mySet
         return items[(size - 1) / 2];
     }
 
-    template<typename T>
+    template<Numeric T>
     MySet<T>::MySet()
     {
         size = 0;
@@ -38,20 +38,20 @@ namespace mySet
         items = new T[capacity];
     }
 
-    template<typename T>
+    template<Numeric T>
     MySet<T>::MySet(int capacity) : capacity(capacity)
     {
         items = new T[capacity];
         size = capacity;
     }
 
-    template<typename T>
+    template<Numeric T>
     MySet<T>::~MySet()
     {
         delete[] items;
     }
 
-    template<typename T>
+    template<Numeric T>
     T & MySet<T>::operator[](size_t index)
     {
         if (index >= size)
@@ -61,7 +61,7 @@ namespace mySet
         return items[index];
     }
 
-    template<typename T>
+    template<Numeric T>
     void MySet<T>::grow()
     {
         T* tempArray = new T[capacity == 0 ? 1 : capacity * 2];
@@ -76,7 +76,7 @@ namespace mySet
         items = tempArray;
     }
 
-    template<typename T>
+    template<Numeric T>
     void MySet<T>::shrink()
     {
         T* tempArray = new T[capacity / 2];
@@ -91,7 +91,7 @@ namespace mySet
         items = tempArray;
     }
 
-    template<typename T>
+    template<Numeric T>
     size_t MySet<T>::find(T match)
     {
         if(sorted == false)
@@ -129,7 +129,7 @@ namespace mySet
 
     }
 
-    template<typename T>
+    template<Numeric T>
     bool MySet<T>::insertAt(size_t index, T item)
     {
         if(index < 0 || index > capacity)
@@ -171,13 +171,13 @@ namespace mySet
         return true;
     }
 
-    template<typename T>
+    template<Numeric T>
     bool MySet<T>::insert(const T item)
     {
         return insertAt(size, item);
     }
 
-    template<typename T>
+    template<Numeric T>
     void MySet<T>::remove(T item)
     {
         size_t index = find(item);
@@ -187,7 +187,7 @@ namespace mySet
         }
     }
 
-    template<typename T>
+    template<Numeric T>
     void MySet<T>::removeAt(const size_t index)
     {
         if (index >= size)
@@ -208,7 +208,7 @@ namespace mySet
         }
     }
 
-    template<typename T>
+    template<Numeric T>
     void MySet<T>::clear()
     {
         size = 0;
@@ -216,7 +216,7 @@ namespace mySet
         items = new T[capacity];
     }
 
-    template<typename T>
+    template<Numeric T>
     std::string MySet<T>::toString()
     {
         std::string s;
@@ -229,7 +229,7 @@ namespace mySet
         return s.substr(0, s.size() - 2);
     }
 
-    template<typename T>
+    template<Numeric T>
     void MySet<T>::swap(T* item1, T* item2)
     {
         T temp = *item1;
@@ -237,7 +237,7 @@ namespace mySet
         *item2 = temp;
     }
 
-    template<typename T>
+    template<Numeric T>
     void MySet<T>::bubbleSort(bool bidirectional)
     {
         bool sorted = false;
@@ -272,7 +272,7 @@ namespace mySet
         }
     }
 
-    template<typename T>
+    template<Numeric T>
     void MySet<T>::insertionSort(bool verbose)
     {
 
@@ -312,7 +312,7 @@ namespace mySet
         }
     }
 
-    template<typename T>
+    template<Numeric T>
     void MySet<T>::selectionSort()
     {
         for(int i = 0; i < size - 1; i++)
@@ -333,12 +333,8 @@ namespace mySet
 
         }
     }
-
-
-
-    // / TODO
-    // Accesses memory beyond the array. This is caused by the condition of the for loops.
-    template<typename T>
+    
+    template<Numeric T>
     void MySet<T>::oddEven()
     {
         bool sorted = false;

@@ -13,6 +13,9 @@ namespace mySet
 
     // TODO implement is_arithmetic_v
     template<typename T>
+        concept Numeric = std::is_arithmetic_v<T>;
+
+    template<Numeric T>
     class MySet
     {
     private:
