@@ -13,8 +13,7 @@ Your project must consist of three separate files:
 1. Header file: Contains class declaration.
 2. Source file: Contains the class implementation
 3. main.cpp: Contains the main() function for testing purposes.
-4. 
-Only include the header file in other files, and ensure you explicitly instantiate all necessary template
+4. Only include the header file in other files, and ensure you explicitly instantiate all necessary template
 instances to avoid linking errors during compilation. For more details about handling templates, refer to
 the following link. Start at the section “Why can’t I separate the definition of my templates class from
 its declaration and put it inside a .cpp file?”
