@@ -1,0 +1,15 @@
+68/80
+
+Categories
+
+Effort - 18/20
+
+Correctness - 20/30
+- (-3) Missing the is_arithmetic_v constraint on T.
+- (-1) Memory leak caused by testing method. An instance of MySet is created in the heap (using the new keyword) but is never freed.
+- (-3) oddEven() accesses memory beyond the array. This is caused by the condition of the for loops.
+- (-3) Missing many of the specified test scenarios.
+
+Source Code Cleanliness - 10/10
+
+Optimization - 20/20
